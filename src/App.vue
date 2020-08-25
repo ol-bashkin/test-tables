@@ -1,28 +1,73 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+    <div id="app">
+        <NavBlock :pages="pages" />
+        <component :is="whichPageToShow" />
+    </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import NavBlock from "./components/nav/NavBlock.vue";
 
 export default {
-  name: "App",
-  components: {
-    HelloWorld
-  }
+    name: "App",
+    components: {
+        NavBlock
+    },
+    data() {
+        return {
+            pages: [
+                {
+                    slug: "",
+                    component: "home",
+                    name: "Главная"
+                },
+                {
+                    slug: "days",
+                    component: "days",
+                    name: "Дни"
+                },
+                {
+                    slug: "hours",
+                    component: "hours",
+                    name: "Часы"
+                }
+            ]
+        };
+    },
+    computed: {
+        whichPage() {
+            let page = window.location.pathname.slice(1).split("/")[0];
+            if (window.history && window.history.state) {
+                page = window.history.state;
+            }
+            return page === "" ? "home" : page;
+        },
+        isPageExist() {
+            return this.pages.some(page => page.component === this.whichPage);
+        },
+        whichPageToShow() {
+            if (this.isPageExist) {
+                return () => import(`@/views/${this.whichPage}.vue`);
+            }
+            return () => import("@/views/error.vue");
+        }
+    }
 };
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/vars";
+body {
+    margin: 0;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    font-family: $Avenir;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $text;
+    height: 100vh;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
 }
 </style>

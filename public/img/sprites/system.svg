@@ -1,0 +1,13 @@
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="circle" viewBox="0 0 25 25">
+        <circle cx="12.5" cy="12.5" r="11.5"/>
+    </symbol>
+    <symbol id="square" viewBox="0 0 25 25">
+        <path d="m2 2h21v21h-21z"/>
+    </symbol>
+    <symbol id="star" viewBox="0 0 25 25">
+        <path d="m12.5 1 2.8064 8.63729h9.0818l-7.3473 5.33811 2.8064 8.6373-7.3473-5.3381-7.34732 5.3381 2.80643-8.6373-7.347316-5.33811h9.081776z"/>
+    </symbol>
+  </defs>
+</svg>
